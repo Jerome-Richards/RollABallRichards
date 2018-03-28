@@ -5,18 +5,25 @@ using UnityEngine;
 public class TrackPadMover : MonoBehaviour {
 
     public float speed;
-    private Rigidbody ballRigidbody;
+    private Rigidbody PlayerRigidbody;
     SteamVR_TrackedObject controller;
 
 
     private void Awake()
     {
         this.controller = GetComponent<SteamVR_TrackedObject>();
-        this.ballRigidbody = GameObject.Find("Ball").GetComponent<Rigidbody>();
+        this.PlayerRigidbody = GameObject.Find("Player").GetComponent<Rigidbody>();
     }
+    void Start()
+    {
 
-	// Update is called once per frame
-	void FixedUpdate () {
+    }
+    void Update()
+    {
+
+    }
+    // Update is called once per frame
+    void FixedUpdate () {
         var device = SteamVR_Controller.Input((int)controller.index);
         if (device.GetTouch(SteamVR_Controller.ButtonMask.Touchpad))
         {
@@ -26,7 +33,7 @@ public class TrackPadMover : MonoBehaviour {
             Vector3 movement = (touch.position) - (trackpad.position);
             movement = new Vector3(movement.x, 0, movement.z);
             movement.Normalize();
-            this.ballRigidbody.AddForce(movement * speed);
+            this.PlayerRigidbody.AddForce(movement * speed);
         }
 	}
 }
